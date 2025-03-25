@@ -2,12 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { ExternalLink, Github } from 'lucide-react';
+import p1 from '../assets/p1.jpg'; // استيراد الصورة
+import p2 from '../assets/p2.jpg'; // استيراد الصورة
 
 const projects = [
   {
     title: "Simple E-Commerce Platform",
     description: "A full-fledged e-commerce website with product management, payments, and order tracking.",
-    image: "/images/p2.jpg",
+    image: p1,
     tags: ["Laravel", "MySQL"],
     links: {
       github: "https://github.com/MohamedAhmed479/My_First_Laravel_Project",
@@ -16,7 +18,7 @@ const projects = [
   {
     title: "Multi-Restaurant Food Ordering System",
     description: "A food ordering platform supporting multiple restaurants with online payments.",
-    image: "/images/p1.jpg",
+    image: p2,
     tags: ["Laravel", "Stripe"],
     links: {
       github: "https://github.com/MohamedAhmed479/Multi-Restaurant-Food-Ordering-Application",

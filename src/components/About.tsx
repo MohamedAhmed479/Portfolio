@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { FaDownload } from "react-icons/fa";
+import profileImg from '../assets/profile.png'; // استيراد الصورة
 
 const About: React.FC = () => {
   const [ref, inView] = useInView({
@@ -30,7 +31,7 @@ const About: React.FC = () => {
             transition={{ duration: 1 }}
           >
             <motion.img
-              src="/images/profile.png"
+              src={profileImg}
               alt="Developer working"
               className="rounded-full w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] object-cover shadow-xl"
               whileHover={{ scale: 1.1, rotate: 5 }}
