@@ -1,0 +1,54 @@
+I'll provide an overview of the portfolio website project:
+
+Technology Stack
+    React 18 with TypeScript for the frontend framework
+    Vite as the build tool and development server
+    Tailwind CSS for styling and responsive design
+    Framer Motion for advanced animations and transitions
+    React Intersection Observer for scroll-based animations
+    Lucide React for modern, customizable icons
+    Project Structure
+The website consists of five main components:
+
+Header:
+
+Responsive navigation with mobile menu
+Smooth scroll navigation
+Animated transitions
+
+Hero Section:
+Dynamic background with animated gradients
+Social media links with hover animations
+Responsive typography
+
+About Section:
+Split layout with image and text
+Scroll-triggered animations
+Interactive elements
+Projects Section:
+
+Grid layout with project cards
+Hover effects with image scaling
+Project links with GitHub and live demo options
+Tag system for technologies used
+Skills & Experience:
+
+Grid layout for skill categories
+Interactive skill cards
+Timeline for work experience
+Scroll-based reveal animations
+Contact Section:
+
+Contact form with validation
+Social media links
+Interactive icon animations
+Contact information display
+Key Features
+Fully responsive design that works on all devices
+Smooth scroll navigation
+Advanced animations using Framer Motion
+Intersection Observer for scroll-based animations
+Modern, minimalist design with creative transitions
+Optimized performance with Vite
+Type-safe development with TypeScript
+The project demonstrates modern web development practices while maintaining a balance between aesthetics and functionality.
