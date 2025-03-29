@@ -7,10 +7,10 @@ const skills = [
   {
     category: "Backend",
     items: [
-      { name: "PHP", mastery: 75, color: "bg-emerald-500" },
-      { name: "MySQL", mastery: 75, color: "bg-yellow-500" },
-      { name: "Laravel", mastery: 75, color: "bg-purple-500" },
-      { name: "RESTful APIs", mastery: 70, color: "bg-indigo-700" },
+      { name: "PHP", mastery: 70, color: "bg-green-600" },
+      { name: "MySQL", mastery: 70, color: "bg-yellow-600" },
+      { name: "Laravel", mastery: 75, color: "bg-purple-700" },
+      { name: "RESTful APIs", mastery: 50, color: "bg-indigo-500" },
     ]
   },
   {
@@ -18,27 +18,27 @@ const skills = [
     items: [
       { name: "HTML", mastery: 60, color: "bg-blue-500" },
       { name: "CSS", mastery: 50, color: "bg-green-500" },
-      { name: "JavaScript", mastery: 20, color: "bg-indigo-500" },
+      { name: "JavaScript", mastery: 20, color: "bg-indigo-300" },
     ]
   },
   {
     category: "Tools & DevOps",
     items: [
-      { name: "Git", mastery: 70, color: "bg-emerald-500" },
-      { name: "Docker", mastery: 10, color: "bg-cyan-500" },
-      { name: "AWS", mastery: 10, color: "bg-orange-500" },
-      { name: "Linux (Ubuntu, CLI Basics)", mastery: 10, color: "bg-gray-800" },
+      { name: "Git", mastery: 40, color: "bg-emerald-500" },
+      { name: "Docker", mastery: 10, color: "bg-cyan-300" },
     ]
   },
   {
     category: "Programming Languages",
     items: [
-      { name: "Python", mastery: 60, color: "bg-yellow-600" },
-      { name: "C#", mastery: 60, color: "bg-cyan-600" },
-      { name: "SQL", mastery: 80, color: "bg-blue-700" },
+      { name: "Python", mastery: 50, color: "bg-yellow-500" },
+      { name: "C#", mastery: 40, color: "bg-cyan-500" },
+      { name: "SQL", mastery: 70, color: "bg-blue-600" },
     ]
   },
 ];
+
+
 
 const experiences = [
   {
@@ -84,20 +84,19 @@ const SkillMasteryBadge: React.FC<{ mastery: number, color: string }> = ({ maste
 
 const Skills: React.FC = () => {
   const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
+    triggerOnce: false,
+    threshold: 0.05,
   });
   const [selectedExperience, setSelectedExperience] = useState<number | null>(null);
   const [hoveredSkill, setHoveredSkill] = useState<{ category: string, skill: string } | null>(null);
   const [activeSkillCategory, setActiveSkillCategory] = useState<string | null>(null);
 
-  // For mobile, we'll show mastery by default and use accordion for categories
   const toggleSkillCategory = (category: string) => {
     setActiveSkillCategory(activeSkillCategory === category ? null : category);
   };
 
   return (
-    <section id="skills" className="py-12 md:py-20 bg-white">
+    <section id="skills" className="py-12 md:py-20 bg-white" ref={ref}>
       <div className="container mx-auto px-4 sm:px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -108,24 +107,29 @@ const Skills: React.FC = () => {
           Skills & Expertise
         </motion.h2>
 
-        {/* Mobile view - accordion for skill categories */}
-        <div className="block md:hidden mb-8">
+        {/* عرض الأكورديون للهاتف والتابلت (أقل من 1024px) */}
+        <div className="block lg:hidden mb-8">
           {skills.map((skillGroup, groupIndex) => (
             <div key={groupIndex} className="mb-4">
-              <button
+              <motion.button
                 onClick={() => toggleSkillCategory(skillGroup.category)}
                 className="w-full flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm"
+                whileTap={{ scale: 0.98 }}
               >
                 <h3 className="text-lg font-bold text-gray-800">{skillGroup.category}</h3>
-                <svg
-                  className={`w-5 h-5 transition-transform ${activeSkillCategory === skillGroup.category ? 'transform rotate-180' : ''}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                <motion.div
+                  animate={{ rotate: activeSkillCategory === skillGroup.category ? 180 : 0 }}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
+                  <svg
+                    className="w-5 h-5 text-gray-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </motion.div>
+              </motion.button>
 
               <AnimatePresence>
                 {activeSkillCategory === skillGroup.category && (
@@ -134,16 +138,21 @@ const Skills: React.FC = () => {
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
                   >
                     <div className="p-4 space-y-3">
                       {skillGroup.items.map((skill, skillIndex) => (
-                        <div key={skillIndex} className="bg-white rounded-lg p-3 shadow-sm">
+                        <motion.div
+                          key={skillIndex}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: skillIndex * 0.05 }}
+                          className="bg-white rounded-lg p-3 shadow-sm"
+                        >
                           <div className="flex justify-between items-center mb-2">
                             <span className="font-medium text-gray-700">{skill.name}</span>
                           </div>
                           <SkillMasteryBadge mastery={skill.mastery} color={skill.color} />
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </motion.div>
@@ -153,13 +162,13 @@ const Skills: React.FC = () => {
           ))}
         </div>
 
-        {/* Desktop view - grid layout */}
-        <div ref={ref} className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {/* عرض الشبكة للكمبيوتر (1024px فأكبر) - كما كانت تمامًا */}
+        <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-4 gap-6 mb-12">
           {skills.map((skillGroup, groupIndex) => (
             <motion.div
               key={groupIndex}
               initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: groupIndex * 0.2 }}
               className="p-5 bg-gray-50 rounded-xl shadow-sm"
             >
@@ -199,6 +208,8 @@ const Skills: React.FC = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* ... (بقية الكود كما كانت) */}
 
         <motion.div
           initial={{ opacity: 0, y: 50 }}
